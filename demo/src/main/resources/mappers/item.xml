@@ -108,4 +108,7 @@
 		</foreach>
 		)
 	</update>
+	<delete id="deleteItemOne" parameterType="int">
+		DELETE FROM ITEM WHERE ITEMNO = #{no}
+	</delete>
 </mapper>

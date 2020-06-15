@@ -51,9 +51,7 @@ public class ItemDAOimpl implements ItemDAO {
 	@Override
 	public List<ItemVO> selectItemList() {
 		// TODO Auto-generated method stub
-		System.out.println("크기");
-		System.out.println(sqlFactroy.openSession().selectList("Item.selectItemList1").size());
-		System.out.println("크기");
+
 		return sqlFactroy.openSession().selectList("Item.selectItemList1");
 	}
 
@@ -73,6 +71,11 @@ public class ItemDAOimpl implements ItemDAO {
 	public int updateItemBatch(List<ItemVO> list) {
 		// TODO Auto-generated method stub
 		return sqlFactroy.openSession().update("Item.updateItemBatch",list);
+	}
+
+	@Override
+	public int deleteItemOne(int no) {
+		return sqlFactroy.openSession().delete("Item.deleteItemOne", no);
 	}
 
 }

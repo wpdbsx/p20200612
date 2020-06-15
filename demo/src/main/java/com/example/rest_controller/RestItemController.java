@@ -6,24 +6,50 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dao.ItemDAO;
+import com.example.dao.OrderDAO;
 import com.example.vo.ItemVO;
+import com.example.vo.OrderVO;
 @CrossOrigin("*") //CROES 해제    서버에 json문서를 만들어줘도 다른 디바이스에선 접속이 안됨 크로스도메인
 @RestController  //json 문서를 만들기 위해선 이게 필요하다....
 public class RestItemController {
 	@Autowired // @Bean으로 만들어진 객체를 받아옴.
 	private ItemDAO iDAO = null;
 	
+	@Autowired
+	private OrderDAO oDAO = null;
+	
+	@RequestMapping(value = "/rest/itemorder.json", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody HashMap<String, Object> itemOrder(){
+			List<OrderVO> list  =oDAO.selectItemOrder();
+			//String str = ['배',45],['사과',456],[귤',345]
+	//리스트의 개수만큼 반복
+//			for (OrderVO map :list) {
+//			int no = (int) map.getItemno();
+//			String name = map.getItemname();
+//			int cnt = (int)map.getItemqty();
+//				
+//			//map의 key를 가져옴
+////			Set<String> keys= map.keySet();
+////			for( String key: keys) {  //키를 순차적으로 출력한다.(5개)
+////				System.out.println(key);
+////			}
+////			System.out.println();
+//		}
+		//String str = "aaa";//String.format("['data1', %d, %d, %d, %d, %d, %d]",a,b,c,d,e,f);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ret", list);
+		return map;
+	}
 	@RequestMapping(value = "/rest/itemsearch.json", method = {RequestMethod.GET, RequestMethod.POST},
 			produces= MediaType.APPLICATION_JSON_VALUE)
 

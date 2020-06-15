@@ -17,4 +17,5 @@ public interface ItemDAO {
 	public int deleteItemBatch(int[] no);
 	public List<ItemVO> selectItemWhere(int[] itemno);
 	public int updateItemBatch(List<ItemVO> list);
+	public int deleteItemOne(int no);
 }

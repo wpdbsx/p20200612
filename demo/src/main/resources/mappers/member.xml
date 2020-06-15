@@ -37,4 +37,63 @@
 		resultType="com.example.vo.MemberVO">
 		SELECT * FROM MEMBER
 	</select>
+	<delete id= "deleteList" parameterType="string">
+		DELETE FROM MEMBER WHERE
+			USERID in (
+			<foreach collection="array" item="obj" separator=",">
+			
+			 #{obj}
+		</foreach>	
+			)
+		
+	</delete>
+	<update id= "updateList" parameterType="java.util.List">
+	UPDATE MEMBER SET
+		PASSWORD=(
+		CASE
+		<foreach collection="list" item="obj" separator=" ">
+			WHEN USERID
+			= #{obj.userid} THEN #{obj.password}
+		</foreach>
+		END
+		),
+		USERNAME=(
+		CASE
+		<foreach collection="list" item="obj" separator=" ">
+			WHEN USERID
+			= #{obj.userid} THEN #{obj.username}
+		</foreach>
+		END
+		),
+		PHONE=(
+		CASE
+		<foreach collection="list" item="obj" separator=" ">
+			WHEN USERID
+			= #{obj.userid} THEN #{obj.phone}
+		</foreach>
+		END
+		),
+		USERAGE=(
+		CASE
+		<foreach collection="list" item="obj" separator=" ">
+			WHEN USERID
+			= #{obj.userid} THEN #{obj.userage}
+		</foreach>
+		END
+		)
+		WHERE USERID IN (
+		<foreach collection="list" item="obj" separator=",">
+			#{obj.userid}
+		</foreach>
+		)
+	</update>
+	<select id="memberListid" parameterType="string" resultType="com.example.vo.MemberVO">
+	SELECT * FROM MEMBER WHERE
+	USERID IN (
+	<foreach collection="array" item="id" separator=",">
+			
+			 #{id}
+		</foreach>	
+	)
+	</select>
 </mapper>
