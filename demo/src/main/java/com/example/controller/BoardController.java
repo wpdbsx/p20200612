@@ -122,7 +122,7 @@ public class BoardController {
 		map.put("no", no);
 
 	
-		
+		//
 		return "/board/content";
 		
 	}
