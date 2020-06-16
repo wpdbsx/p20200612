@@ -30,8 +30,8 @@ public class RestBoardController {
 		map.put("start", page*10-9);
 		map.put("end", page*10);
 		List<BoardVO> list  =bDAO.selectBoard(map);
-			
-		map.put("ret", list);
-		return map;
+		HashMap <String,Object> map2 = new HashMap<String, Object>() ;
+		map2.put("ret", list);
+		return map2;
 	}
 }
