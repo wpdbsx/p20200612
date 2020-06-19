@@ -18,7 +18,7 @@ public class BoardDAOimpl implements BoardDAO {
 	
 	@Autowired // @Bean으로 만들어진 객체를 받아옴.
 	private SqlSessionFactory sqlFactroy = null;
-
+	
 	@Override
 	public int insertBoard(BoardVO obj) {
 		// TODO Auto-generated method stub
@@ -42,17 +42,17 @@ public class BoardDAOimpl implements BoardDAO {
 	@Override
 	public int updateBoard(BoardVO obj) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlFactroy.openSession().update("Board.update",obj);
 	}
 
 	@Override
-	public int deleteBoard(BoardVO obj) {
+	public int deleteBoard(int no) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlFactroy.openSession().delete("Board.delete",no);
 	}
 	@Override
-	public int countBoard() {
-		return sqlFactroy.openSession().selectOne("Board.count");
+	public int countBoard(String text) {
+		return sqlFactroy.openSession().selectOne("Board.count",text);
 		
 		
 	}
@@ -71,6 +71,18 @@ public class BoardDAOimpl implements BoardDAO {
 	public BoardVO selectBoardImg(int no) {
 		// TODO Auto-generated method stub
 		return sqlFactroy.openSession().selectOne("Board.selectBoardImg",no);
+	}
+
+	@Override
+	public int selectBoardPrev(int no) {
+		// TODO Auto-generated method stub
+		return sqlFactroy.openSession().selectOne("Board.selectPrev",no);
+	}
+
+	@Override
+	public int selectBoardNext(int no) {
+		// TODO Auto-generated method stub
+		return sqlFactroy.openSession().selectOne("Board.selectNext",no);
 	}
 	
 }

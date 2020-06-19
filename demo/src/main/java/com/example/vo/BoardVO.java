@@ -12,6 +12,23 @@ public class BoardVO {
 	private String brd_id = null;
 	private long brd_hit = 1L;
 	private String brd_date = null;
+	private String[] tmp = null; //관심분야
+	
+	public String[] getTmp() {
+		return tmp;
+	}
+
+	public ArrayList<byte[]> getBrd_imglist() {
+		return brd_imglist;
+	}
+
+	public void setBrd_imglist(ArrayList<byte[]> brd_imglist) {
+		this.brd_imglist = brd_imglist;
+	}
+
+	public void setTmp(String[] tmp) {
+		this.tmp = tmp;
+	}
 
 	public long getBrd_no() {
 		return brd_no;

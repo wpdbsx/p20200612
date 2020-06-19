@@ -81,7 +81,7 @@ public class AdminController {
 	public String itembatch(@RequestParam("btn") String btn
 			,RedirectAttributes redirectAttributes,
 			@RequestParam(value= "chk[]", required= false) int[] itemno)  {
-		System.out.println(btn);
+	
 		if(itemno !=null) {
 		if(btn.equals("일괄삭제")) {
 		 iDAO.deleteItemBatch(itemno);
@@ -143,7 +143,7 @@ public class AdminController {
 		List<MemberVO> list = mDAO.selectMemberList();
 		//개수
 		//System.out.println( (int) Math.ceil(n/10.0));
-		System.out.println(list.size());
+	
 		model.addAttribute("lista",list);
 		
 		
@@ -184,8 +184,7 @@ public class AdminController {
 //			//tmp변수를 dao에 전달하여 물품번호에 해당하는 목록만 가져오기
 			//jsp로 전달 후 화면 표시
 			//select * from item where itemno in (1,2,3)
-			System.out.println("길이");
-			System.out.println(tmp.length);
+		
 			List<MemberVO> list = mDAO.selectMemberID(tmp);
 			model.addAttribute("list",list);
 			return "/admin/memberupdate";

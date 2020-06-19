@@ -17,19 +17,21 @@
 		BRD_NO,BRD_TITLE,BRD_ID,BRD_HIT,BRD_DATE,
 		ROW_NUMBER() OVER (ORDER BY BRD_NO DESC) ROWN
 		FROM
-		BOARD)
+		BOARD
+		WHERE BRD_TITLE LIKE '%' || #{text} || '%'
+		)
 		WHERE ROWN BETWEEN #{start} AND #{end}
 	</select>
 
-	<select id="count" resultType="int">
-		SELECT COUNT(*) FROM BOARD
+	<select id="count" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM BOARD WHERE BRD_TITLE LIKE '%' || #{text} || '%' 
 	</select>
 	<select id="selectBoardOne" parameterType="int"
 		resultType="com.example.vo.BoardVO">
 		SELECT * FROM BOARD WHERE BRD_NO=#{no}
 	</select>
 	<update id="updateHit" parameterType="int">
-		UPDATE BOARD SET BRD_HIT = BRD_HIT+1
+		UPDATE BOARD SET BRD_HIT = BRD_HIT+3
 		WHERE BRD_NO= #{no}
 	</update>
 	<insert id = "insertBatch" parameterType="java.util.List">
@@ -51,5 +53,26 @@
 	<select id = "selectBoardImg" parameterType="int" resultMap ="img1">
 	SELECT BRD_NO,BRD_IMG FROM BOARD WHERE BRD_NO = #{brd_no}
 	
+	</select>
+	<delete id="delete" parameterType="int">
+	DELETE FROM BOARD WHERE BRD_NO=#{no}
+	</delete>
+	<update id= "update" parameterType="com.example.vo.BoardVO">
+	UPDATE BOARD 
+	SET BRD_TITLE= #{brd_title}, BRD_CONTENT= #{brd_content}
+	<if test= "brd_img != null">
+	,
+	BRD_IMG=#{brd_img , jdbcType=BLOB}
+	</if>
+	WHERE BRD_NO = #{brd_no}
+	
+	</update>
+	<select id= "selectPrev" parameterType="int"  resultType="int">
+	SELECT NVL(MAX(BRD_NO),0) FROM BOARD
+	WHERE BRD_NO <![CDATA[<]]> #{brd_no}
+	</select>
+	<select id= "selectNext" parameterType="int"  resultType="int">
+	SELECT NVL(MIN(BRD_NO),0) FROM BOARD
+	WHERE BRD_NO <![CDATA[>]]> #{brd_no}
 	</select>
 </mapper>

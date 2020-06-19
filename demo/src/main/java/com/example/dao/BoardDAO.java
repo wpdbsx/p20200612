@@ -16,11 +16,16 @@ public interface BoardDAO {
 
 	public int updateBoard(BoardVO obj);
 
-	public int deleteBoard(BoardVO obj);
+	public int deleteBoard(int no);
 	
-	public int countBoard(); //전체 카운트 구하기
+	public int countBoard(String text); //전체 카운트 구하기
 	
 	public int updateHit(int no );
 	public int insertBatch(List<BoardVO> list); //Board.insertBatch
 	public BoardVO selectBoardImg(int no);
+	public int selectBoardPrev(int no );
+	public int selectBoardNext(int no);
+	//int prev = bDAO.selectBoardPrev();
+	//model.addAttribute("prev",prev); 
+	//int n =bDAO.selectBoardNext();
 }
